@@ -3,10 +3,16 @@ import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Stack from '@mui/material/Stack';
+import { MultiStepFormContext } from '../StepContext';
+import { useContext } from 'react';
+
 
 
 
 export const Step2 = () => {
+  const {setActiveStep, data, setData} = useContext(MultiStepFormContext)
+
+
   return (
     <Box
     sx={{
@@ -27,6 +33,8 @@ export const Step2 = () => {
             id="city"
             label="city"
             autoFocus
+            value={data["city"]}
+            onChange={(e) => setData({...data, 'city' : e.target.value})}
           />
         </Grid>
         <Grid item sm={12}>
@@ -37,24 +45,15 @@ export const Step2 = () => {
             label="address"
             name="address"
             autoComplete="address"
-          />
-        </Grid>
-
-        <Grid item xs={12}>
-          <TextField
-            required
-            fullWidth
-            id="email"
-            label="Email Address"
-            name="email"
-            autoComplete="email"
+            value={data["address"]}
+            onChange={(e) => setData({...data, 'address' : e.target.value})}
           />
         </Grid>
 
       </Grid>
       <Stack spacing={2} marginTop={"1rem"} direction="row" justifyContent="flex-end">
-        <Button variant="contained">Préc</Button>
-        <Button variant="outlined">Suiv</Button>
+        <Button variant="contained" onClick={() => setActiveStep(1)}>Préc</Button>
+        <Button variant="outlined" onClick={() => setActiveStep(3)}>Suiv</Button>
       </Stack>
     </Box>
   </Box>
